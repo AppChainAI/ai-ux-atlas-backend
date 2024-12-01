@@ -99,7 +99,7 @@ async def generate_journey_map(websocket: WebSocket):
                     # 发送当前阶段的数据到客户端
                     await websocket.send_json({
                         "type": "stage_complete",
-                        "data": parsed_result,
+                        "item": parsed_result,
                         "current_stage": stage,
                         "total_stages": len(stages)
                     })
