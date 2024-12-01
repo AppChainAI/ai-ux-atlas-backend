@@ -1,7 +1,8 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, WebSocket
 from fastapi.middleware.cors import CORSMiddleware
 import logging
 import time
+from routes.gen_map import generate_journey_map
 
 
 # 配置日志
@@ -56,6 +57,10 @@ async def ping():
         "message": "pong",
         "timestamp": time.time()
     }
+
+@app.websocket("/ws/generate-map")
+async def websocket_endpoint(websocket: WebSocket):
+    await generate_journey_map(websocket)
 
 if __name__ == "__main__":
     import uvicorn
