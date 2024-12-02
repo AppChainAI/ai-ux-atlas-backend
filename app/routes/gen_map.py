@@ -3,9 +3,9 @@ from dotenv import load_dotenv
 from langchain_openai import OpenAI
 from langchain.output_parsers.json import SimpleJsonOutputParser
 from langchain.prompts import PromptTemplate
-import json
 import asyncio
 from fastapi import WebSocket
+
 
 load_dotenv()
 
@@ -114,8 +114,9 @@ async def generate_journey_map(websocket: WebSocket):
                     "type": "error",
                     "message": f"处理{stage}数据时出错: {str(e)}"
                 })
-                
-            await asyncio.sleep(0.5)
+            
+            # 等待0.3秒
+            await asyncio.sleep(0.3)
 
         # 发送所有数据生成完成的消息
         await websocket.send_json({
